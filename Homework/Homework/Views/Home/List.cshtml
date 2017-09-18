@@ -1,0 +1,39 @@
+﻿@model List<Homework.Models.ViewModels.ListViewModel>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>#</th>
+                <th>類別</th>
+                <th>日期</th>
+                <th>金額</th>
+            </tr>
+            @{
+                int a = 1;
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @(a++)
+                    </td>
+                    <td>
+                        @(item.Type == 0 ? "支出" : "收入")
+                    </td>
+                    <td>
+                        @item.Date.ToString("yyyy-MM-dd")
+                    </td>
+                    <td>
+                        @item.Money
+                    </td>
+                </tr>
+                    }
+                }
+        </table>
+    </div>
+</div>
+
