@@ -1,4 +1,5 @@
-﻿using Homework.Models.ViewModels;
+﻿using Homework.Models;
+using Homework.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,18 +31,17 @@ namespace Homework.Controllers
 
         public ActionResult List()
         {
-            Random random = new Random(Guid.NewGuid().GetHashCode());
-            DateTime date = DateTime.Now;
-
+            DbModel db = new DbModel();
+            var accounts = db.AccountBook.ToList().OrderBy(d=>d.Dateee);
             var model = new List<ListViewModel>();
 
-            for(int i=0; i<1000; i++)
+            foreach (var account in accounts)
             {
-                date = date.AddDays(random.Next(3));
-                model.Add(new ListViewModel() { Type = random.Next(2), Date = date, Money = random.Next(1,10000) });
+                model.Add(new ListViewModel() {
+                    Type = account.Categoryyy,
+                    Date = account.Dateee,
+                    Money = account.Amounttt });
             }
-
-            
 
             return View(model);
         }
