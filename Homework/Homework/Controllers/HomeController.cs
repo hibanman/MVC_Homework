@@ -10,6 +10,8 @@ namespace Homework.Controllers
 {
     public class HomeController : Controller
     {
+        DbModel db = new DbModel();
+
         public ActionResult Index()
         {
             return View();
@@ -31,7 +33,6 @@ namespace Homework.Controllers
 
         public ActionResult List()
         {
-            DbModel db = new DbModel();
             var accounts = db.AccountBook.ToList().OrderBy(d=>d.Dateee);
             var model = new List<ListViewModel>();
 
@@ -44,6 +45,27 @@ namespace Homework.Controllers
             }
 
             return View(model);
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Categoryyy,Amounttt,Dateee,Remarkkk")] AccountBook book)
+        {
+            if (ModelState.IsValid)
+            {
+                book.Id = Guid.NewGuid();
+                book.Dateee = DateTime.Now;
+                db.AccountBook.Add(book);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(book);
         }
     }
 }

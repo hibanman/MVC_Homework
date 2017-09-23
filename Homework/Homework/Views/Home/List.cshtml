@@ -22,7 +22,21 @@
                         @(a++)
                     </td>
                     <td>
-                        @(item.Type == 0 ? "支出" : "收入")
+                        @{ 
+                            string value,color;
+                            if(item.Type == 0)
+                            {
+                                value = "支出";
+                                color = "red";
+                            }
+                            else
+                            {
+                                value = "收入";
+                                color = "blue";
+                            }
+                        }
+
+                        @Html.Label("StudentName", value, new { style = "color:"+ color })
                     </td>
                     <td>
                         @item.Date.ToString("yyyy-MM-dd")

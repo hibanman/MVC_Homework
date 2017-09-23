@@ -1,0 +1,48 @@
+﻿@model Homework.Models.AccountBook
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label for="category" class="col-sm-2 control-label">類別</label>
+        <div class="col-sm-10">
+            <select id="category" name="Categoryyy" class="form-control">
+                <option value="" selected>請選擇</option>
+                <option value="0">支出</option>
+                <option value="1">收入</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Categoryyy)
+        </div>
+    </div>
+        <div class="form-group">
+            <label for="money" class="col-sm-2 control-label">金額</label>
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.Amounttt, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amounttt)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date" class="col-sm-2 control-label">日期</label>
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.Dateee, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Dateee)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">備註</label>
+            <div class="col-sm-10">
+                @Html.TextArea("Remarkkk", new { maxlength = 100, @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Remarkkk)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-8 col-sm-4">
+                <button type="submit" class="btn btn-default">送出</button>
+            </div>
+        </div>
+}
+
